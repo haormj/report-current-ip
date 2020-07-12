@@ -1,7 +1,7 @@
 # variable
 binaryName=report-current-ip
 versionPath=github.com/haormj/version
-version=v0.1.0
+version=v1.0.0
 outputPath=_output
 GOARCH=amd64
 
@@ -22,4 +22,4 @@ clean:
 	rm -rf ./${outputPath}
 	rm -rf logs
 
-.PHONY: all build run
+.PHONY: all build run clean
