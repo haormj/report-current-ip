@@ -1,0 +1,20 @@
+log_opt:
+  # debug/info/warn/error
+  level: debug
+  filename: ./logs/report-current-ip.log
+  # console/json
+  encoder: json
+provider_opt:
+  domain_record_opt:
+    domain_name: <domain name, e.g. example.com>
+    rr: <RR, e.g. hello>
+    type: A
+  aliyun_provider_opt:
+    region_id: <region id, e.g. cn-shenzhen>
+    access_key_id: <access key id>
+    access_key_secret: <access key secret>
+task_opt:
+  report_ip_task_opt:
+    if_name: eth0
+    # second
+    retry_interval: 60
