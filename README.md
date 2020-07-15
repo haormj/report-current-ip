@@ -59,3 +59,32 @@ esac
 
 exit $?
 ```
+
+3. run by openwrt
+```
+cat > /etc/init.d/report-current-ip << EOF
+#!/bin/sh /etc/rc.common
+#
+# report-current-ip       Starts report-current-ip.
+#
+
+START=99
+
+start() {
+	printf "Starting report-current-ip: "
+	cd /opt/report-current-ip
+	./report-current-ip
+	echo "OK"
+}
+stop() {
+	printf "Stopping report-current-ip: "
+	killall report-current-ip
+	echo "OK"
+}
+restart() {
+	stop
+	start
+}
+EOF
+/etc/init.d/report-current-ip enable
+```

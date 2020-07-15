@@ -26,14 +26,15 @@ func NewReportIPTask(opt option.TaskOpt, ps []provider.Provider) (*ReportIPTask,
 
 func (r *ReportIPTask) Start() error {
 	ps := r.ps
-	ip, err := r.getCurrentIP(r.opt.ReportIPTaskOpt.IfName)
-	if err != nil {
-		return err
-	}
 	for {
-		ps = r.reportIPToProviders(ip, ps)
-		if len(ps) == 0 {
-			break
+		ip, err := r.getCurrentIP(r.opt.ReportIPTaskOpt.IfName)
+		if err != nil {
+			log.Logger.Errorw("getCurrentIP error", "err", err)
+		} else {
+			ps = r.reportIPToProviders(ip, ps)
+			if len(ps) == 0 {
+				break
+			}
 		}
 		time.Sleep(time.Second * time.Duration(r.opt.ReportIPTaskOpt.RetryInterval))
 	}
