@@ -17,4 +17,45 @@
 make GOARCH=arm
 ```
 
-2. TODO run by sysvinit
+2. run by sysvinit
+```shell
+#!/bin/sh
+#
+# report-current-ip       Starts report-current-ip.
+#
+
+umask 077
+
+start() {
+	printf "Starting report-current-ip: "
+	cd /opt/report-current-ip
+	./report-current-ip
+	echo "OK"
+}
+stop() {
+	printf "Stopping report-current-ip: "
+	killall report-current-ip
+	echo "OK"
+}
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart|reload)
+	restart
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+```
